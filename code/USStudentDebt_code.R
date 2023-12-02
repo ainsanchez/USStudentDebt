@@ -1,17 +1,30 @@
 #Include R libraries
-library("tidyverse")
-library("ggplot2")
-library("openxlsx")
-library("gridExtra")
-library("viridis")
-library("hrbrthemes")
-library("sf")
-library("terra")
-library("spData")
-library("rnaturalearth")
-library("rnaturalearthhires")
-library("car")
-library("caret")
+if(!require("tidyverse")) install.packages("tidyverse")
+require("tidyverse")
+if(!require("ggplot2")) install.packages("ggplot2")
+require("ggplot2")
+if(!require("openxlsx")) install.packages("openxlsx")
+require("openxlsx")
+if(!require("gridExtra")) install.packages("gridExtra")
+require("gridExtra")
+if(!require("viridis")) install.packages("viridis")
+require("viridis")
+if(!require("hrbrthemes")) install.packages("hrbrthemes")
+require("hrbrthemes")
+if(!require("sf")) install.packages("sf")
+require("sf")
+if(!require("terra")) install.packages("terra")
+require("terra")
+if(!require("spData")) install.packages("spData")
+require("spData")
+if(!require("rnaturalearth")) install.packages("rnaturalearth")
+require("rnaturalearth")
+if(!require("rnaturalearthhires")) install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org", type = "source")
+require("rnaturalearthhires")
+if(!require("car")) install.packages("car")
+require("car")
+if(!require("caret")) install.packages("caret")
+require("caret")
 
 ################################################################################
 ##
@@ -44,7 +57,8 @@ nsldsElememnts <- rbind(nsldsElememntsP1, nsldsElememntsP2, nsldsElememntsP3)
 ##
 ################################################################################
 
-#Reduce the number of variables in the NSLDS dataset
+#Reduce the number of variables in the NSLDS dataset with 
+#external variable list previously cleaned up
 varNamesDep <- read.xlsx("BD/varNamesDep.xlsx")
 index <- which(names(nsldsElememnts) %in% varNamesDep$Varname)
 nsldsElememnts <- nsldsElememnts[,index]
@@ -197,7 +211,7 @@ graph3
 ##
 ################################################################################
 
-#Variable selection
+#Variable selection for the 2 models
 predictorsIndM1 <- c(2:4)
 predictorsIndM2 <- c(2:7)
 

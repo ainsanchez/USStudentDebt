@@ -14,19 +14,32 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, include=FALSE}
 #Include R libraries
-library("tidyverse")
-library("ggplot2")
-library("openxlsx")
-library("gridExtra")
-library("viridis")
-library("hrbrthemes")
-library("sf")
-library("terra")
-library("spData")
-library("rnaturalearth")
-library("rnaturalearthhires")
-library("car")
-library("caret")
+if(!require("tidyverse")) install.packages("tidyverse")
+require("tidyverse")
+if(!require("ggplot2")) install.packages("ggplot2")
+require("ggplot2")
+if(!require("openxlsx")) install.packages("openxlsx")
+require("openxlsx")
+if(!require("gridExtra")) install.packages("gridExtra")
+require("gridExtra")
+if(!require("viridis")) install.packages("viridis")
+require("viridis")
+if(!require("hrbrthemes")) install.packages("hrbrthemes")
+require("hrbrthemes")
+if(!require("sf")) install.packages("sf")
+require("sf")
+if(!require("terra")) install.packages("terra")
+require("terra")
+if(!require("spData")) install.packages("spData")
+require("spData")
+if(!require("rnaturalearth")) install.packages("rnaturalearth")
+require("rnaturalearth")
+if(!require("rnaturalearthhires")) install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org", type = "source")
+require("rnaturalearthhires")
+if(!require("car")) install.packages("car")
+require("car")
+if(!require("caret")) install.packages("caret")
+require("caret")
 
 #Data Exploration of College Scorecard
 collegeScorecard <- read.csv("/Users/ainsanchez/Documents/codigo/USStudentDebt/BD/3.archive/Most-Recent-Cohorts-Scorecard-Elements.csv",
@@ -282,7 +295,7 @@ RMSE <- function(true_ratings, predicted_ratings){
 
 Upon running both models, it is necessary to mention that states with fewer than 30 institutions registered in the final dataset were deleted, because they would create noise on the performance metrics by using insufficient datapoints to estimate repayment. Although 41 states remained from the deletion, the number of observations in the dataset decreased minimally from 5.076 to 4,872. Also, the glmboost algorithm requires that the same states are included in both the train and test dataset, so that it can calculate the corresponding estimates and subsequently use them to predict repayment. Thus, eliminating those underrepresented states allowed the algorithm to run correctly and avoid additional bias on the estimates of each model.
 
-In relation to the results obtained, the first model performed similarly well to the second model for they have a very small difference between their corresponding RMSE performance metrics. As a result, the second model which includes RPY_7YR_RT as a predicted variable and STATE, FAMINC and INC_N as predictors is selected, since its performance is more efficient by using fewer variables than the second model. In fact, the RMSE obtained for the first model has a value of 0.0870604 while the performance metric for the second is 0.0866926, which implies that the model predicts repayment rate with an average error of 8.7 percentage points.
+In relation to the results obtained, the first model performed similarly well to the second model for they have a very small difference between their corresponding RMSE performance metrics. As a result, the second model which includes RPY_7YR_RT as a predicted variable and STATE, FAMINC and INC_N as predictors is selected, since its performance is more efficient by using fewer variables than the second model. In fact, the RMSE obtained for the first model has a value of 0.0870604 while the performance metric for the second is 0.0866926, which implies that the first model predicts repayment rate with an average error of 8.7 percentage points.
 
 The following table summarizes the performance metrics of both models employed:
 
